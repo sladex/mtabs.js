@@ -1,0 +1,28 @@
+{
+  "name": "mtabs.js",
+  "version": "0.0.1",
+  "description": "mtabs.js is a native js library for creating tabbed elements in html",
+  "homepage": "http://sladex.org/mtabs.js/",
+  "author": {
+    "name": "Sladex",
+    "email": "xslade@gmail.com",
+    "web": "http://sladex.org"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/sladex/mtabs.js"
+  },
+  "devDependencies": {
+    "grunt": "~0.4.1",
+    "grunt-contrib-uglify": "~0.2.4",
+    "grunt-contrib-watch": "~0.5.3",
+    "grunt-contrib-jshint": "~0.6.4",
+    "grunt-contrib-concat": "~0.3.0"
+  },
+  "licenses": [
+    {
+      "type": "MIT",
+      "url": "https://github.com/sladex/mtabs.js/blob/master/LICENSE"
+    }
+  ]
+}

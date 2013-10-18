@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>mtabs.js</title>
+    <meta name="viewport" content="width=device-width">
+    <style>
+      .mtabs-content {
+        display: none;
+        border: solid 3px;
+        position: relative;
+        margin-top: -3px;
+        padding: 10px;
+      }
+      .mtabs-link {
+        display: inline-block;
+        padding: 5px;
+        color: #555;
+        background: #abb0dd;
+        font-weight: bold;
+        border: solid 3px transparent;
+      }
+      .mtabs-link-wrap {
+        display: inline-block;
+        border: solid 3px transparent;
+        padding: 10px 20px;
+        background-color: gainsboro;
+        background-image: -webkit-linear-gradient(-45deg, #e3b0b0 25%, transparent 25%,
+                  transparent 50%, #e3b0b0 50%, #e3b0b0 75%,
+                  transparent 75%, transparent);
+        background-image: linear-gradient(-45deg, #e3b0b0 25%, transparent 25%,
+                  transparent 50%, #e3b0b0 50%, #e3b0b0 75%,
+                  transparent 75%, transparent);
+        -webkit-background-size: 15px 15px;
+        background-size: 15px 15px;
+      }
+      .mtabs-selected {
+        border: solid 3px;
+        color: #000;
+      }
+      .mtabs-selected .mtabs-link {
+        color: #000;
+      }
+      
+      .hl { color: #c00; }
+      hr { margin: 3em 0; }
+    </style>
+  </head>
+  <body>
+    <h1>mtabs.js demos</h1>
+    <p><a href="https://github.com/sladex/mtabs.js">https://github.com/sladex/mtabs.js</a></p>
+    <p><a href="http://sladex.org/mtabs.js/">http://sladex.org/mtabs.js/</a></p>
+    <hr>
+    <h2>Basic example</h2>
+    <p>You should allways specify 'selected' class in your markup and put tabs in the same level in DOM.</p>
+    <pre><code>
+      &lt;div id="mbabs-demo-1"&gt;
+        <span class="hl">&lt;div&gt;</span>
+          &lt;a class="mtabs-link <span class="hl">mtabs-selected</span>" href="#mbabs-content-1"&gt;Tab 1&lt;/a&gt;
+          &lt;a class="mtabs-link" href="#mbabs-content-2"&gt;Tab 2&lt;/a&gt;
+          &lt;a class="mtabs-link" href="#mbabs-content-3"&gt;Tab 3&lt;/a&gt;
+        <span class="hl">&lt;/div&gt;</span>
+        &lt;div class="mtabs-content" id="mbabs-content-1"&gt;Lorem ipsum dolor sit amet...&lt;/div&gt;
+        &lt;div class="mtabs-content" id="mbabs-content-2"&gt;Suspendisse pharetra ullamcorper...&lt;/div&gt;
+        &lt;div class="mtabs-content" id="mbabs-content-3"&gt;Sed eget nulla eget ante imperdiet...&lt;/div&gt;
+      &lt;/div&gt;
+
+      <span class="hl">&lt;script src="js/classList.min.js"&gt;&lt;/script&gt;</span>
+      &lt;script src="js/mtabs.min.js"&gt;&lt;/script&gt;
+      &lt;script&gt;
+        mtabs('mbabs-demo-1');
+      &lt;/script&gt;
+    </code></pre>
+    <p>In order to support old browsers (IE8-IE9, Android 2-2.3), you'll need to include <a href="https://github.com/eligrey/classList.js">classList</a> polyfill.</p>
+    <h3>Result</h3>
+    <div id="mbabs-demo-1">
+      <div>
+        <a class="mtabs-link mtabs-selected" href="#mbabs-content-1">Tab 1</a>
+        <a class="mtabs-link" href="#mbabs-content-2">Tab 2</a>
+        <a class="mtabs-link" href="#mbabs-content-3">Tab 3</a>
+      </div>
+      <div class="mtabs-content" id="mbabs-content-1">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel massa nec mauris pharetra fringilla. Duis et nunc turpis. Nulla viverra augue dapibus pellentesque euismod. Mauris bibendum nulla non metus accumsan, ut vulputate velit ornare. Donec nibh nulla, varius quis eros vel, ullamcorper faucibus justo. Nam lorem eros, rhoncus vulputate rutrum quis, elementum eu orci. Duis molestie, magna non vestibulum pulvinar, enim est tempus neque, in facilisis massa velit eu lectus. Nam nec augue ut massa gravida malesuada. Duis id nisi quam. Curabitur commodo iaculis dui, non pharetra velit sodales id. Curabitur ac lacus id purus adipiscing tincidunt vitae quis odio. Morbi vitae eleifend metus. Curabitur hendrerit velit eros, vel euismod urna tincidunt vel.</div>
+      <div class="mtabs-content" id="mbabs-content-2">Suspendisse pharetra ullamcorper eros eu sollicitudin. Sed eget tempor dolor, venenatis facilisis quam. Cras at facilisis orci. Nulla consequat mauris eros, sed adipiscing nisi accumsan ac. Vivamus quis mi in neque lobortis convallis eu in quam. Pellentesque cursus nec ante tempor mollis. Suspendisse tempus dui libero, a faucibus lorem ultricies et. Vestibulum blandit urna sit amet est blandit, eget mattis nisl rhoncus.</div>
+      <div class="mtabs-content" id="mbabs-content-3">Sed eget nulla eget ante imperdiet lobortis. Etiam mi neque, imperdiet in aliquet ac, ultrices nec ipsum. Aliquam tortor tortor, ullamcorper a mi in, sollicitudin venenatis nunc. Quisque purus nulla, semper et nunc ac, congue pretium metus. Donec lobortis nisi et interdum porttitor. Sed sagittis diam magna. Duis vestibulum fringilla metus, eu euismod nunc fermentum id. Donec at pellentesque dui. Nunc commodo feugiat lacinia. Ut at porta libero, in dapibus lacus.</div>
+    </div>
+    <hr>
+    <h2>Add selected class for wrapper</h2>
+    <p>Sometimes you might need to perform tab switch by firing event on one element and change 'selected' class on one of the parents elements.</p>
+    <pre><code>
+      &lt;div id="mbabs-demo-2"&gt;
+        &lt;div&gt;
+          &lt;span class="mtabs-link-wrap <span class="hl">mtabs-selected</span>"&gt;
+            &lt;a class="mtabs-link" href="#mbabs-demo-2-content-1" <span class="hl">data-mtabs="1"</span>&gt;Tab 1&lt;/a&gt;
+          &lt;/span&gt;
+          &lt;span class="mtabs-link-wrap mtabs-selected"&gt;
+            &lt;a class="mtabs-link" href="#mbabs-demo-2-content-2" data-mtabs="1"&gt;Tab 2&lt;/a&gt;
+          &lt;/span&gt;
+          &lt;span class="mtabs-link-wrap mtabs-selected"&gt;
+            &lt;a class="mtabs-link" href="#mbabs-demo-2-content-2" data-mtabs="1"&gt;Tab 3&lt;/a&gt;
+          &lt;/span&gt;
+        &lt;/div&gt;
+        &lt;div class="mtabs-content" id="mbabs-demo-2-content-1"&gt;...&lt;/div&gt;
+        &lt;div class="mtabs-content" id="mbabs-demo-2-content-2"&gt;...&lt;/div&gt;
+        &lt;div class="mtabs-content" id="mbabs-demo-2-content-3"&gt;...&lt;/div&gt;
+      &lt;/div&gt;
+
+      &lt;script src="js/mtabs.min.js"&gt;&lt;/script&gt;
+      &lt;script&gt;
+        mtabs('mbabs-demo-2');
+      &lt;/script&gt;
+    </code></pre>
+    <h3>Result</h3>
+    <div id="mbabs-demo-2">
+      <div>
+        <span class="mtabs-link-wrap mtabs-selected"><a class="mtabs-link" href="#mbabs-demo-2-content-1" data-mtabs="1">Tab 1</a></span>
+        <span class="mtabs-link-wrap"><a class="mtabs-link" href="#mbabs-demo-2-content-2" data-mtabs="1">Tab 2</a></span>
+        <span class="mtabs-link-wrap"><a class="mtabs-link" href="#mbabs-demo-2-content-3" data-mtabs="1">Tab 3</a></span>
+      </div>
+      <div class="mtabs-content" id="mbabs-demo-2-content-1">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel massa nec mauris pharetra fringilla. Duis et nunc turpis. Nulla viverra augue dapibus pellentesque euismod. Mauris bibendum nulla non metus accumsan, ut vulputate velit ornare. Donec nibh nulla, varius quis eros vel, ullamcorper faucibus justo. Nam lorem eros, rhoncus vulputate rutrum quis, elementum eu orci. Duis molestie, magna non vestibulum pulvinar, enim est tempus neque, in facilisis massa velit eu lectus. Nam nec augue ut massa gravida malesuada. Duis id nisi quam. Curabitur commodo iaculis dui, non pharetra velit sodales id. Curabitur ac lacus id purus adipiscing tincidunt vitae quis odio. Morbi vitae eleifend metus. Curabitur hendrerit velit eros, vel euismod urna tincidunt vel.</div>
+      <div class="mtabs-content" id="mbabs-demo-2-content-2">Suspendisse pharetra ullamcorper eros eu sollicitudin. Sed eget tempor dolor, venenatis facilisis quam. Cras at facilisis orci. Nulla consequat mauris eros, sed adipiscing nisi accumsan ac. Vivamus quis mi in neque lobortis convallis eu in quam. Pellentesque cursus nec ante tempor mollis. Suspendisse tempus dui libero, a faucibus lorem ultricies et. Vestibulum blandit urna sit amet est blandit, eget mattis nisl rhoncus.</div>
+      <div class="mtabs-content" id="mbabs-demo-2-content-3">Sed eget nulla eget ante imperdiet lobortis. Etiam mi neque, imperdiet in aliquet ac, ultrices nec ipsum. Aliquam tortor tortor, ullamcorper a mi in, sollicitudin venenatis nunc. Quisque purus nulla, semper et nunc ac, congue pretium metus. Donec lobortis nisi et interdum porttitor. Sed sagittis diam magna. Duis vestibulum fringilla metus, eu euismod nunc fermentum id. Donec at pellentesque dui. Nunc commodo feugiat lacinia. Ut at porta libero, in dapibus lacus.</div>
+    </div>
+    <hr>
+    <h2>Dealing with options</h2>
+    <p>There is a number of options you are able to specify.</p>
+    <pre><code>
+      &lt;div id="mbabs-demo-3"&gt;
+        &lt;div&gt;
+          &lt;a class="mtabs-link mtabs-selected" href="#mbabs-demo-3-content-1"&gt;Tab 1&lt;/a&gt;
+          &lt;a class="mtabs-link" href="#mbabs-demo-3-content-2"&gt;Tab 2&lt;/a&gt;
+          &lt;a class="mtabs-link" href="#mbabs-demo-3-content-3"&gt;Tab 3&lt;/a&gt;
+        &lt;/div&gt;
+        &lt;div class="mtabs-content" id="mbabs-demo-3-content-1"&gt;...&lt;/div&gt;
+        &lt;div class="mtabs-content" id="mbabs-demo-3-content-2"&gt;...&lt;/div&gt;
+        &lt;div class="mtabs-content" id="mbabs-demo-3-content-3"&gt;...&lt;/div&gt;
+      &lt;/div&gt;
+
+      &lt;script src="js/mtabs.min.js"&gt;&lt;/script&gt;
+      &lt;script&gt;
+        mtabs('mbabs-demo-3', {
+          index: 2, // number of tab to load, default: 0
+          sclass: 'mtabs-selected', // selected class name, default: 'mtabs-selected'
+          ev: 'mouseover',  // change tab on this event (e.g. mouseover, mousedown, dblclick, etc.), default: 'click'
+          hash: true,       // follow the location.hash value (it will overwrite index property), default: true
+          cb: function (index, tabs, tabsC, tabsL) {  // callback function, default: null
+            console.log(this);  // current tab
+            console.log(index); // numeric index of this tab
+            console.log(tabs);  // array of all tabs
+            console.log(tabsC); // array of the elements linked to the tabs
+            console.log(tabsL); // array on all tabs links (look wrapper expample)
+          }
+        });
+      &lt;/script&gt;
+    </code></pre>
+    <h3>Result</h3>
+    <div id="mbabs-demo-3">
+      <div>
+        <a class="mtabs-link mtabs-selected" href="#mbabs-demo-3-content-1">Tab 1</a>
+        <a class="mtabs-link" href="#mbabs-demo-3-content-2">Tab 2</a>
+        <a class="mtabs-link" href="#mbabs-demo-3-content-3">Tab 3</a>
+      </div>
+      <div class="mtabs-content" id="mbabs-demo-3-content-1">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel massa nec mauris pharetra fringilla. Duis et nunc turpis. Nulla viverra augue dapibus pellentesque euismod. Mauris bibendum nulla non metus accumsan, ut vulputate velit ornare. Donec nibh nulla, varius quis eros vel, ullamcorper faucibus justo. Nam lorem eros, rhoncus vulputate rutrum quis, elementum eu orci. Duis molestie, magna non vestibulum pulvinar, enim est tempus neque, in facilisis massa velit eu lectus. Nam nec augue ut massa gravida malesuada. Duis id nisi quam. Curabitur commodo iaculis dui, non pharetra velit sodales id. Curabitur ac lacus id purus adipiscing tincidunt vitae quis odio. Morbi vitae eleifend metus. Curabitur hendrerit velit eros, vel euismod urna tincidunt vel.</div>
+      <div class="mtabs-content" id="mbabs-demo-3-content-2">Suspendisse pharetra ullamcorper eros eu sollicitudin. Sed eget tempor dolor, venenatis facilisis quam. Cras at facilisis orci. Nulla consequat mauris eros, sed adipiscing nisi accumsan ac. Vivamus quis mi in neque lobortis convallis eu in quam. Pellentesque cursus nec ante tempor mollis. Suspendisse tempus dui libero, a faucibus lorem ultricies et. Vestibulum blandit urna sit amet est blandit, eget mattis nisl rhoncus.</div>
+      <div class="mtabs-content" id="mbabs-demo-3-content-3">Sed eget nulla eget ante imperdiet lobortis. Etiam mi neque, imperdiet in aliquet ac, ultrices nec ipsum. Aliquam tortor tortor, ullamcorper a mi in, sollicitudin venenatis nunc. Quisque purus nulla, semper et nunc ac, congue pretium metus. Donec lobortis nisi et interdum porttitor. Sed sagittis diam magna. Duis vestibulum fringilla metus, eu euismod nunc fermentum id. Donec at pellentesque dui. Nunc commodo feugiat lacinia. Ut at porta libero, in dapibus lacus.</div>
+    </div>
+    <hr>
+    
+    <script src="js/classList.min.js"></script>
+    <script src="js/mtabs.min.js"></script>
+    <script>
+      mtabs('mbabs-demo-1');
+      mtabs('mbabs-demo-2');
+      mtabs('mbabs-demo-3', { 
+        index: 2,
+        sclass: 'mtabs-selected',
+        ev: 'click',
+        hash: true,
+        cb: function (index, tabs, tabsL, tabsC) {
+          console.log(this, index, tabs, tabsL, tabsC);
+        }
+      });
+    </script>
+  </body>
+</html>
